@@ -1,15 +1,22 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
 import Wrapper from '../Helpers/Wrappers';
 import NameModal from '../UI/NameModal';
 import ChatItem from './ChatItem';
 import classes from './ChatRoom.module.css';
+import { messageActions } from '../../store/messageSlice';
+import store from '../../store';
 
 const ChatRoom = () => {
+	const message = useSelector(() => store.getState().messages);
+	const dispatch = useDispatch();
+
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [currentUser, setCurrentUser] = useState();
-	const [messages, setMessages] = useState([]);
+
 	const msgInputRef = useRef();
 
 	const queryParams = new URLSearchParams(location.search);
@@ -25,18 +32,47 @@ const ChatRoom = () => {
 		});
 	};
 
+	const onStorageUpdate = (e) => {
+		const { key } = e;
+		if (key === 'chats') {
+			dispatch(messageActions.refreshMessages());
+		}
+	};
+
+	useEffect(() => {
+		window.addEventListener('storage', onStorageUpdate);
+		return () => {
+			window.removeEventListener('storage', onStorageUpdate);
+		};
+	}, []);
+
 	const submitHandler = (event) => {
 		event.preventDefault();
-		const name = msgInputRef.current.value;
+		const msg = msgInputRef.current.value;
+		if (msg) {
+			const payload = {
+				id: (
+					Date.now().toString(36) + Math.random().toString(36).substring(2)
+				).toString(),
+				message: msg,
+				sender: username,
+			};
+
+			dispatch(messageActions.sendMessage(payload));
+
+			msgInputRef.current.value = '';
+		}
 	};
 	return (
 		<Wrapper>
 			{!currentUser && <NameModal onConfirm={addNameHandler} />}
 			{currentUser && (
 				<Wrapper>
-					<div className={classes.chatTop}>Welcome to the ChatRoom</div>
+					<div className={classes.chatTop}>
+						Welcome to the ChatRoom {currentUser}
+					</div>
 					<div className={classes.chatArea}>
-						<ChatItem msgs={messages} user={currentUser} />
+						<ChatItem msgs={message} user={currentUser} />
 					</div>
 					<div className={classes.container}>
 						<div className={classes.footer}>

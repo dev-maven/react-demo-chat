@@ -1,8 +1,8 @@
 .button {
 	font: inherit;
-	border: 1px solid #4f005f;
+	border: 1px solid #03537d;
 	background: #fff;
-	color: #4f005f;
+	color: #03537d;
 	padding: 0.5rem 1.5rem;
 	cursor: pointer;
 	border-radius: 30px;
@@ -13,7 +13,7 @@
 .button:hover,
 .button:active {
 	background: #ccc;
-	border-color: #741188;
+	border-color: #03537d;
 }
 
 .button:focus {
@@ -21,7 +21,7 @@
 }
 
 .chatTop {
-	background: purple;
+	background: #03537d;
 	padding: 30px;
 	text-align: center;
 	color: #fff;
@@ -32,7 +32,7 @@
 
 .footer {
 	padding: 20px;
-	background: #4f015f;
+	background: #03537d;
 	bottom: 0;
 	position: fixed;
 	width: inherit;

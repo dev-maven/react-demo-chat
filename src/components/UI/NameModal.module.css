@@ -18,7 +18,7 @@
 }
 
 .header {
-	background: #4f005f;
+	background: #03537d;
 	padding: 1rem;
 }
 
@@ -70,8 +70,8 @@
 
 .button {
 	font: inherit;
-	border: 1px solid #4f005f;
-	background: #4f005f;
+	border: 1px solid #03537d;
+	background: #03537d;
 	color: white;
 	padding: 0.25rem 1rem;
 	cursor: pointer;
@@ -80,8 +80,8 @@
 
 .button:hover,
 .button:active {
-	background: #741188;
-	border-color: #741188;
+	background: #336a88;
+	border-color: #336a88;
 }
 
 .button:focus {
