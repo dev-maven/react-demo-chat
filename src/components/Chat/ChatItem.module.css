@@ -1,0 +1,43 @@
+.receivedChat {
+	background: #03537d;
+	padding: 10px;
+	color: #fff;
+	border-radius: 0 10px 10px 10px;
+	position: relative;
+	top: 10px;
+}
+
+.sentChat {
+	background: #e6e6e6;
+	padding: 10px;
+	color: #4c464f;
+	border-radius: 10px 0 10px 10px;
+	position: relative;
+	top: 10px;
+	margin-right: 10px;
+}
+
+.receiverImage {
+	width: 40px;
+	position: relative;
+	height: 30px;
+}
+
+.senderImage {
+	width: 30px;
+	position: relative;
+	height: 30px;
+	opacity: 0.5;
+}
+
+.chatContainer {
+	display: flex;
+	margin: 20px;
+}
+
+.sentChatContainer {
+	display: flex;
+	margin: 20px;
+	text-align: right;
+	justify-content: flex-end;
+}
