@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import ReactDOM from 'react-dom';
 
 import Card from './Card';
-import Button from './Button';
 import classes from './NameModal.module.css';
 
 const Backdrop = () => {
@@ -25,7 +24,9 @@ const ModalOverlay = (props) => {
 					<input ref={nameInputRef} type='text' />
 				</div>
 				<footer className={classes.actions}>
-					<Button type='submit'>Start Chat</Button>
+					<button type='submit' className={classes.button}>
+						Start Chat
+					</button>
 				</footer>
 			</form>
 		</Card>

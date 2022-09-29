@@ -1,4 +1,4 @@
-import ChatRoom from './components/ChatRoom/ChatRoom';
+import ChatRoom from './components/Chat/ChatRoom';
 
 function App() {
 	return <ChatRoom />;
