@@ -6,25 +6,20 @@ const ChatItem = (props) => {
 	return (
 		<Wrapper>
 			{props.msgs.map((message) => (
-				<div>
-					{message.senderName !== props.user && (
+				<div key={message.id}>
+					{message.sender !== props.user && (
 						<div className={classes.chatContainer}>
 							<img
 								src={receiverImage}
 								className={classes.receiverImage}
 								alt='Receiver'
 							/>
-							<div className={classes.receivedChat}>
-								{' '}
-								Lorem Ipsum eshjbnskbjabjvjskbsjvjksbvjsj
-							</div>
+							<div className={classes.receivedChat}> {message.message}</div>
 						</div>
 					)}
-					{message.senderName === props.user && (
+					{message.sender === props.user && (
 						<div className={classes.sentChatContainer}>
-							<div className={classes.sentChat}>
-								Lorem Ipsum eshjbnskbjabjvjskbsjvjksbvjsj
-							</div>
+							<div className={classes.sentChat}>{message.message}</div>
 							<img
 								src={senderImage}
 								className={classes.senderImage}
