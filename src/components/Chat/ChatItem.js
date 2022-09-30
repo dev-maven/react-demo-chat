@@ -1,10 +1,10 @@
 import classes from './ChatItem.module.css';
 import receiverImage from '../../assets/receiver.png';
 import senderImage from '../../assets/sender.png';
-import Wrapper from '../Helpers/Wrappers';
+import React from 'react';
 const ChatItem = (props) => {
 	return (
-		<Wrapper>
+		<React.Fragment>
 			{props.msgs.map((message) => (
 				<div key={message.id}>
 					{message.sender !== props.user && (
@@ -29,7 +29,7 @@ const ChatItem = (props) => {
 					)}
 				</div>
 			))}
-		</Wrapper>
+		</React.Fragment>
 	);
 };
 

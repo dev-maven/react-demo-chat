@@ -1,8 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import Wrapper from '../Helpers/Wrappers';
 import NameModal from '../UI/NameModal';
 import ChatItem from './ChatItem';
 import classes from './ChatRoom.module.css';
@@ -64,10 +63,10 @@ const ChatRoom = () => {
 		}
 	};
 	return (
-		<Wrapper>
+		<React.Fragment>
 			{!currentUser && <NameModal onConfirm={addNameHandler} />}
 			{currentUser && (
-				<Wrapper>
+				<React.Fragment>
 					<div className={classes.chatTop}>
 						Welcome to the ChatRoom {currentUser}
 					</div>
@@ -86,9 +85,9 @@ const ChatRoom = () => {
 							</form>
 						</div>
 					</div>
-				</Wrapper>
+				</React.Fragment>
 			)}
-		</Wrapper>
+		</React.Fragment>
 	);
 };
 
