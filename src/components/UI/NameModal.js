@@ -5,7 +5,7 @@ import Card from './Card';
 import classes from './NameModal.module.css';
 
 const Backdrop = () => {
-	return <div className={classes.backdrop} />;
+	return <div data-testid='modalBackdrop' className={classes.backdrop} />;
 };
 
 const ModalOverlay = (props) => {
@@ -17,7 +17,7 @@ const ModalOverlay = (props) => {
 		props.onConfirm(name);
 	};
 	return (
-		<Card className={classes.modal}>
+		<Card className={classes.modal} id='nameModal'>
 			<form className={classes.form} onSubmit={submitHandler}>
 				<div className={classes.input}>
 					<label htmlFor='nameInput'>Enter Username</label>

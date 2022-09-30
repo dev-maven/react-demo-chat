@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { withReduxStateSync } from 'redux-state-sync';
 
 const msgs = JSON.parse(localStorage.getItem('chats'));
 const initMessagesState = {
@@ -26,4 +25,4 @@ const messageSlice = createSlice({
 
 export const messageActions = messageSlice.actions;
 
-export default withReduxStateSync(messageSlice.reducer);
+export default messageSlice.reducer;
