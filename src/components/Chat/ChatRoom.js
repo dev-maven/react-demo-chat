@@ -10,15 +10,46 @@ import store from '../../store';
 
 const ChatRoom = () => {
 	const message = useSelector(() => store.getState().messages);
+	const [chats, setChats] = useState([]);
 	const dispatch = useDispatch();
+
+	const loadMoreRef = useRef(null);
 
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [currentUser, setCurrentUser] = useState();
+	const [startLoad, setStartLoad] = useState(false);
 
 	const msgInputRef = useRef();
+	const chatItemRef = useRef();
+	const messagesEndRef = useRef(null);
 
 	const queryParams = new URLSearchParams(location.search);
+	const scrollToBottom = () => {
+		messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+	};
+
+	const scrollToChat = () => {
+		chatItemRef.current?.scrollIntoView({ behavior: 'smooth' });
+	};
+
+	useEffect(() => {
+		toggleLoad();
+		scrollDelay();
+	}, []);
+
+	const scrollDelay = () => {
+		setTimeout(() => {
+			scrollToBottom();
+		}, 500);
+	};
+
+	const toggleLoad = () => {
+		setStartLoad(false);
+		setTimeout(() => {
+			setStartLoad(true);
+		}, 2000);
+	};
 
 	const username = queryParams.get('user');
 	if (username && !currentUser) {
@@ -39,11 +70,37 @@ const ChatRoom = () => {
 	};
 
 	useEffect(() => {
+		setChats(message.slice(-25));
+	}, [message]);
+
+	const loadMessagesHandler = () => {
+		setTimeout(() => {
+			const length = chats.length + 25;
+			setChats(message.slice(-length));
+			toggleLoad();
+			scrollToChat();
+		}, 500);
+	};
+
+	useEffect(() => {
 		window.addEventListener('storage', onStorageUpdate);
 		return () => {
 			window.removeEventListener('storage', onStorageUpdate);
 		};
 	}, []);
+
+	useEffect(() => {
+		if (loadMoreRef.current) {
+			const observer = new IntersectionObserver((entries, observer) => {
+				const entry = entries[0];
+				if (entry.isIntersecting) {
+					loadMessagesHandler();
+				}
+			});
+
+			observer.observe(loadMoreRef.current);
+		}
+	}, [loadMoreRef, loadMessagesHandler]);
 
 	const submitHandler = (event) => {
 		event.preventDefault();
@@ -60,6 +117,7 @@ const ChatRoom = () => {
 			dispatch(messageActions.sendMessage(payload));
 
 			msgInputRef.current.value = '';
+			scrollDelay();
 		}
 	};
 	return (
@@ -71,7 +129,13 @@ const ChatRoom = () => {
 						Welcome to the ChatRoom {currentUser}
 					</div>
 					<div className={classes.chatArea}>
-						<ChatItem msgs={message} user={currentUser} />
+						{chats.length < message.length && startLoad && (
+							<div className={classes.loadMore} ref={loadMoreRef}></div>
+						)}
+						<div ref={chatItemRef}>
+							<ChatItem msgs={chats} user={currentUser} />
+						</div>
+						<div ref={messagesEndRef} />
 					</div>
 					<div className={classes.container}>
 						<div className={classes.footer}>

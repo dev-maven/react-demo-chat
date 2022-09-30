@@ -40,8 +40,12 @@
 }
 
 .chatArea {
-	height: 78vh;
+	height: 70vh;
 	overflow: auto;
+}
+
+.loadMore {
+	height: 10vh;
 }
 
 .input {
